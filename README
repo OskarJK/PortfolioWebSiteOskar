@@ -1,0 +1,26 @@
+Środowisko virtualne:
+-python -m venv moja_strona 
+-moja_strona\Scripts\activate 
+
+Instalacja Django:
+-pip -m install django
+
+Upgrade pip:
+-python.exe -m pip install --upgrade pip
+
+Uruchomienie projektu:
+-django-admin startproject mysite
+
+Uruchomienie serwera:
+-python manage.py runserver
+
+Migracje bazy danych:
+-python manage.py makemigrations
+-python manage.py migrate
+
+Tworzenie superużytkownika:
+-python manage.py createsuperuser
+
+Uruchomienie panelu administracyjnego:
+-otwórz przeglądarkę i przejdź do http://localhost:8000/admin/
+
