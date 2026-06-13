@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.text import slugify
 
 # Create your models here.
+#------------------------------------------------------------Personal Information-----------------------------------------------------
 class PersonalInformation(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
@@ -19,6 +20,7 @@ class PersonalInformation(models.Model):
         verbose_name = "Personal Information"
         verbose_name_plural = "Personal Information"
     
+#------------------------------------------------------------Skills------------------------------------------------------------------
 class Skill(models.Model):
     class ProficiencyLevel(models.TextChoices):
         BEGINNER = 'Beginner', 'Beginner'
@@ -37,6 +39,7 @@ class Skill(models.Model):
     slug = models.SlugField(unique=True, blank=True, max_length=250)
     proficiency = models.CharField(max_length=50, choices=ProficiencyLevel.choices)
     description = models.TextField(help_text="A brief description of the skill and your experience with it")
+    icon = models.CharField(max_length=100, blank=True, help_text="Devicon class name, e.g. 'devicon-python-plain'")
     
     # Automatically generate slug from name if not provided
     def save(self, *args, **kwargs):
@@ -56,7 +59,9 @@ class Skill(models.Model):
     class Meta:
         verbose_name = "Skill"
         verbose_name_plural = "Skills"
-            
+        ordering = ['category', 'name']
+
+#------------------------------------------------------------Experience------------------------------------------------------------      
 class Experience(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True, blank=True, max_length=250)
@@ -68,7 +73,7 @@ class Experience(models.Model):
     
     def save(self, *args, **kwargs):
         if not self.slug:
-            base = slugify(self.title)
+            base = slugify(f"{self.title} at {self.company}")
             slug = base
             n = 1
             while Experience.objects.filter(slug=slug).exclude(pk=self.pk).exists():
@@ -78,13 +83,14 @@ class Experience(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.title} at {self.company}"
+        return f"{self.title} - {self.company}"
     
     class Meta:
         verbose_name = "Experience"
         verbose_name_plural = "Experiences"
         ordering = ['-start_date']
-    
+
+#------------------------------------------------------------Projects---------------------------------------------------------------
 class Project(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True, blank=True, max_length=250)
@@ -93,8 +99,9 @@ class Project(models.Model):
     description = models.TextField(help_text="A detailed description of the project")
     skills_used = models.ManyToManyField(Skill, related_name='projects')
     github_link = models.URLField(blank=True, null=True)
-    live_preview_link = models.URLField(blank=True, null=True)
-    created_at = models.DateField()
+    live_preview_link = models.URLField(blank=True, null=True, help_text="Link to a live demo of the project (if available)")
+    created_at = models.DateField(null=True, blank=True, help_text="The date the project was created")
+    end_date = models.DateField(null=True, blank=True, help_text="The date the project was completed (leave blank if still ongoing)")
     order = models.PositiveIntegerField(default=0, help_text="Niższy = wyżej na liście")
 
     def save(self, *args, **kwargs):
@@ -116,10 +123,12 @@ class Project(models.Model):
         verbose_name_plural = "Projects"
         ordering = ['order', '-created_at']
 
+#------------------------------------------------------------Project Images---------------------------------------------------------
 class ProjectImage(models.Model):
     project = models.ForeignKey(Project, related_name='images', on_delete=models.CASCADE)
     image = models.ImageField(upload_to='project_images/')
     caption = models.CharField(max_length=255, blank=True, help_text="Optional caption for the image")
+    order = models.PositiveIntegerField(default=0, help_text="Niższy = wyżej na liście")
 
     def __str__(self):
         return f"Image for {self.project.title}"
@@ -127,7 +136,9 @@ class ProjectImage(models.Model):
     class Meta:
         verbose_name = "Project Image"
         verbose_name_plural = "Project Images"
+        ordering = ['order']
         
+#------------------------------------------------------------Education------------------------------------------------------------------    
 class Education(models.Model):
     school = models.CharField(max_length=200, help_text="The name of the educational institution")
     degree = models.CharField(max_length=200, help_text="The degree or certification you earned")
@@ -140,4 +151,6 @@ class Education(models.Model):
         return f"{self.degree} in {self.field_of_study} at {self.school}"
 
     class Meta:
+        verbose_name = "Education"
+        verbose_name_plural = "Education"
         ordering = ['-start_date']
