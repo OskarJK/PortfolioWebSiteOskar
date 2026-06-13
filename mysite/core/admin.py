@@ -3,6 +3,7 @@ from django.contrib import admin
 #Register your models here.
 from .models import (
     PersonalInformation,
+    ProjectReview,
     Skill,
     Experience,
     Project,
@@ -66,3 +67,10 @@ class ProjectAdmin(admin.ModelAdmin):
 class EducationAdmin(admin.ModelAdmin):
     list_display  = ['school', 'degree', 'field_of_study', 'start_date', 'end_date']
     search_fields = ['school', 'degree', 'field_of_study']
+    
+@admin.register(ProjectReview)
+class ProjectReviewAdmin(admin.ModelAdmin):
+    list_display  = ['name', 'project', 'created_at', 'is_approved']
+    list_filter   = ['is_approved', 'created_at']
+    list_editable = ['is_approved']
+    search_fields = ['name', 'email', 'message']

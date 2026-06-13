@@ -154,3 +154,20 @@ class Education(models.Model):
         verbose_name = "Education"
         verbose_name_plural = "Education"
         ordering = ['-start_date']
+        
+#------------------------------------------------------------Project Review---------------------------------------------------------
+class ProjectReview(models.Model):
+    project    = models.ForeignKey(Project, related_name='reviews', on_delete=models.CASCADE)
+    name       = models.CharField(max_length=100)
+    email      = models.EmailField()
+    message    = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_approved = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"Review by {self.name} for {self.project.title}"
+
+    class Meta:
+        verbose_name = "Project Review"
+        verbose_name_plural = "Project Reviews"
+        ordering = ['-created_at']
