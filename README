@@ -11,6 +11,12 @@ Upgrade pip:
 Uruchomienie projektu:
 -django-admin startproject mysite
 
+Utworzenie aplikacji:
+-python manage.py startapp myapp
+
+Instalacja Requirements:
+-pip install -r requirements.txt
+
 Uruchomienie serwera:
 -python manage.py runserver
 
@@ -24,3 +30,8 @@ Tworzenie superużytkownika:
 Uruchomienie panelu administracyjnego:
 -otwórz przeglądarkę i przejdź do http://localhost:8000/admin/
 
+FRONTEND:
+-cd frontend
+-npm install
+-npm run dev
+-Wejdź na http://localhost:5173/ aby zobaczyć frontend

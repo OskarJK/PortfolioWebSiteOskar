@@ -105,3 +105,4 @@ class ProjectReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProjectReview
         fields = ['id', 'project', 'name', 'email', 'message', 'created_at']
+        read_only_fields = ['project', 'created_at']
