@@ -17,8 +17,8 @@ export default function Projects() {
 
       {/* ─── Header ───────────────────────────────────────────── */}
       <div className="mb-10">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Projects</h1>
-        <p className="text-gray-500">Things I've built.</p>
+        <h1 className="text-3xl font-bold text-gray-100 mb-2">Projects</h1>
+        <p className="text-gray-400">Things I've built.</p>
       </div>
 
       {/* ─── Filters ──────────────────────────────────────────── */}
@@ -28,12 +28,12 @@ export default function Projects() {
           placeholder="Search projects..."
           value={search}
           onChange={e => setSearch(e.target.value)}
-          className="flex-1 px-4 py-2 border border-gray-200 rounded-lg text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-300"
+          className="flex-1 px-4 py-2 border border-gray-700 rounded-lg text-sm text-gray-100 bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
         />
         <select
           value={selectedSkill ?? ''}
           onChange={e => setSelectedSkill(e.target.value || undefined)}
-          className="px-4 py-2 border border-gray-200 rounded-lg text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-300"
+          className="px-4 py-2 border border-gray-700 rounded-lg text-sm text-gray-100 bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
         >
           <option value="">All skills</option>
           {skills?.map(skill => (
@@ -55,7 +55,7 @@ export default function Projects() {
             <Link
               key={project.id}
               to={`/projects/${project.slug}`}
-              className="group border border-gray-100 rounded-xl overflow-hidden hover:shadow-md transition-shadow"
+              className="group border border-gray-800 rounded-xl overflow-hidden hover:shadow-md transition-shadow"
             >
               {/* Image */}
               <div className="aspect-video bg-gray-50 overflow-hidden">
@@ -68,10 +68,10 @@ export default function Projects() {
 
               {/* Content */}
               <div className="p-5">
-                <h2 className="font-semibold text-gray-900 mb-1 group-hover:text-indigo-600 transition-colors">
+                <h2 className="font-semibold text-gray-100 mb-1 group-hover:text-indigo-400 transition-colors">
                   {project.title}
                 </h2>
-                <p className="text-sm text-gray-500 mb-4 line-clamp-2">
+                <p className="text-sm text-gray-400 mb-4 line-clamp-2">
                   {project.short_description}
                 </p>
 

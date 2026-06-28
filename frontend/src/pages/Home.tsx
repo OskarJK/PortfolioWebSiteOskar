@@ -24,10 +24,10 @@ export default function Home() {
           />
         )}
         <div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-3">
+          <h1 className="text-4xl font-bold text-gray-100 mb-3">
             {personal?.name}
           </h1>
-          <p className="text-lg text-gray-500 mb-6 leading-relaxed">
+          <p className="text-lg text-gray-400 mb-6 leading-relaxed">
             {personal?.description}
           </p>
           <div className="flex flex-wrap gap-3">
@@ -63,7 +63,7 @@ export default function Home() {
 
       {/* ─── Skills ───────────────────────────────────────────── */}
       <section className="py-16 border-t border-gray-100">
-        <h2 className="text-2xl font-bold text-gray-900 mb-8">Skills</h2>
+        <h2 className="text-2xl font-bold text-gray-100 mb-8">Skills</h2>
         {loadingSkills ? (
           <p className="text-gray-400">Loading skills...</p>
         ) : (
@@ -80,12 +80,12 @@ export default function Home() {
                     {categorySkills.map(skill => (
                       <div
                         key={skill.id}
-                        className="flex items-center gap-2 px-4 py-2 bg-gray-50 rounded-lg border border-gray-100"
+                        className="flex items-center gap-2 px-4 py-2 bg-gray-800 rounded-lg border border-gray-700"
                       >
                         {skill.icon && (
                           <i className={`${skill.icon} text-xl`} />
                         )}
-                        <span className="text-sm font-medium text-gray-700">
+                        <span className="text-sm font-medium text-gray-100">
                           {skill.name}
                         </span>
                         <span className={`text-xs px-2 py-0.5 rounded-full ${
@@ -108,8 +108,8 @@ export default function Home() {
 
       {/* ─── Contact ──────────────────────────────────────────── */}
       <section className="py-16 border-t border-gray-100">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Contact</h2>
-        <div className="space-y-2 text-gray-600">
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">Contact</h2>
+        <div className="space-y-2 text-gray-400">
           {personal?.email && (
             <p>
               <span className="text-gray-400 text-sm">Email </span>
